@@ -1,0 +1,23 @@
+.footer-actions {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-actions a {
+  color: var(--lime);
+  font: 9px monospace;
+  text-decoration: none;
+}
+
+@media (max-width: 520px) {
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-actions {
+    flex-wrap: wrap;
+  }
+}
+

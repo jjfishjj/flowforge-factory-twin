@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlowForge Factory Twin</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="footer.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">F</span><div><strong>FLOWFORGE</strong><small>FACTORY DIGITAL TWIN</small></div></div>
+    <div class="status"><i></i> SIMULATION READY <span id="clock">08:00</span></div>
+  </header>
+
+  <main>
+    <section class="hero-row">
+      <div><p class="eyebrow">PLANT 01 · TAIWAN</p><h1>Production Intelligence</h1><p class="subtitle">Layout planning, capacity simulation and material-flow analytics.</p></div>
+      <div class="layout-switch" role="group" aria-label="佈局方案">
+        <button class="layout-btn active" data-layout="baseline">A · BASELINE</button>
+        <button class="layout-btn" data-layout="optimized">B · OPTIMIZED</button>
+      </div>
+    </section>
+
+    <section class="kpis" aria-label="關鍵績效指標">
+      <article><span>SHIFT OUTPUT</span><strong id="kpi-output">—</strong><small>units / shift</small></article>
+      <article><span>DEMAND ATTAINMENT</span><strong id="kpi-attainment">—</strong><small id="attainment-note">target 1,000</small></article>
+      <article><span>AVG. WIP</span><strong id="kpi-wip">—</strong><small>units in process</small></article>
+      <article><span>LOGISTICS DISTANCE</span><strong id="kpi-distance">—</strong><small>meters / unit</small></article>
+    </section>
+
+    <section class="workspace">
+      <div class="stage-card">
+        <div class="panel-head"><div><span>LIVE DIGITAL TWIN</span><small id="layout-label">BASELINE LAYOUT</small></div><div class="legend"><b class="ok"></b>RUNNING <b class="warn"></b>BOTTLENECK</div></div>
+        <div class="canvas-wrap"><canvas id="factory-canvas" width="1100" height="620" aria-label="工廠數位雙生俯視圖"></canvas><div class="view-chip">ISOMETRIC · Z-UP</div></div>
+      </div>
+
+      <aside class="control-card">
+        <div class="panel-head"><div><span>SCENARIO CONTROLS</span><small>WHAT-IF PARAMETERS</small></div></div>
+        <label>SHIFT LENGTH <output id="shift-out">8 hr</output><input id="shift" type="range" min="4" max="12" step="1" value="8"></label>
+        <label>DAILY DEMAND <output id="demand-out">1,000</output><input id="demand" type="range" min="500" max="1800" step="50" value="1000"></label>
+        <label>ASSEMBLY OEE <output id="oee-out">82%</output><input id="oee" type="range" min="50" max="100" step="1" value="82"></label>
+        <label>AGV FLEET <output id="agv-out">3 units</output><input id="agv" type="range" min="1" max="8" step="1" value="3"></label>
+        <button id="run-sim" class="run-btn"><span>▶</span> RUN SIMULATION</button>
+        <p id="validation" class="validation" role="alert"></p>
+        <div class="scenario-note"><span>ACTIVE ASSUMPTION</span><p id="scenario-summary">8-hour shift with 3 AGVs and 82% assembly OEE.</p></div>
+      </aside>
+    </section>
+
+    <section class="lower-grid">
+      <article class="chart-card"><div class="panel-head"><div><span>THROUGHPUT PROFILE</span><small>HOURLY CUMULATIVE OUTPUT</small></div></div><canvas id="chart" width="800" height="260"></canvas></article>
+      <article class="insight-card"><div class="panel-head"><div><span>ENGINEERING INSIGHTS</span><small>AUTOMATED BOTTLENECK REVIEW</small></div></div><div id="insights" class="empty-state">Run a simulation to generate engineering recommendations.</div></article>
+    </section>
+  </main>
+  <footer>
+    <span>FLOWFORGE / OPENUSD-READY FACTORY PLANNING DEMO</span>
+    <div class="footer-actions">
+      <a href="assets/factory_optimized.usda" download>DOWNLOAD OPENUSD</a>
+      <button id="export-csv">EXPORT RESULTS CSV</button>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
