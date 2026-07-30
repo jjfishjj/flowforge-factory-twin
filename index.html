@@ -6,15 +6,17 @@
   <title>FlowForge Factory Twin</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="usd-lab.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">F</span><div><strong>FLOWFORGE</strong><small>FACTORY DIGITAL TWIN</small></div></div>
+    <nav class="top-nav" aria-label="Demo sections"><a href="#operations">OPERATIONS</a><a href="#openusd-studio">OPENUSD STUDIO</a></nav>
     <div class="status"><i></i> SIMULATION READY <span id="clock">08:00</span></div>
   </header>
 
   <main>
-    <section class="hero-row">
+    <section class="hero-row" id="operations">
       <div><p class="eyebrow">PLANT 01 · TAIWAN</p><h1>Production Intelligence</h1><p class="subtitle">Layout planning, capacity simulation and material-flow analytics.</p></div>
       <div class="layout-switch" role="group" aria-label="佈局方案">
         <button class="layout-btn active" data-layout="baseline">A · BASELINE</button>
@@ -51,6 +53,61 @@
       <article class="chart-card"><div class="panel-head"><div><span>THROUGHPUT PROFILE</span><small>HOURLY CUMULATIVE OUTPUT</small></div></div><canvas id="chart" width="800" height="260"></canvas></article>
       <article class="insight-card"><div class="panel-head"><div><span>ENGINEERING INSIGHTS</span><small>AUTOMATED BOTTLENECK REVIEW</small></div></div><div id="insights" class="empty-state">Run a simulation to generate engineering recommendations.</div></article>
     </section>
+
+    <section class="usd-lab" id="openusd-studio" aria-labelledby="usd-title">
+      <div class="usd-hero">
+        <div>
+          <p class="eyebrow">COMPOSER-FREE TECHNICAL DEMO</p>
+          <h2 id="usd-title">OpenUSD Studio</h2>
+          <p>Explore the same variants, references, payloads and factory metadata authored in the downloadable stage.</p>
+        </div>
+        <div class="usd-valid"><i></i><span>USD CHECKER</span><strong>ALL VARIANTS VALID</strong></div>
+      </div>
+
+      <div class="composition-flow" aria-label="OpenUSD composition layers">
+        <article><b>01</b><span>ASSEMBLY</span><strong>factory.usda</strong><small>VariantSet · layout</small></article>
+        <i>references</i>
+        <article><b>02</b><span>COMPONENT</span><strong>station.usda</strong><small>Reusable interface</small></article>
+        <i>payload</i>
+        <article><b>03</b><span>GEOMETRY</span><strong>station_payload.usda</strong><small>Deferred content</small></article>
+      </div>
+
+      <div class="usd-grid">
+        <article class="scene-panel">
+          <div class="panel-head"><div><span>SCENE GRAPH</span><small>/Factory · kind=assembly</small></div><em>COMPOSED</em></div>
+          <div class="variant-bar"><span>LAYOUT VARIANT</span><button class="usd-variant active" data-layout="baseline">Baseline</button><button class="usd-variant" data-layout="optimized">Optimized</button></div>
+          <div class="tree" role="tree" aria-label="OpenUSD Scene Graph">
+            <div class="tree-row root"><span>⌄</span><b>◇</b><strong>Factory</strong><em>assembly</em></div>
+            <div class="tree-row branch"><span>⌄</span><b>▣</b><strong>Architecture</strong><em>scope</em></div>
+            <div class="tree-row leaf"><span></span><b>□</b><strong>Floor</strong><em>Cube</em></div>
+            <div class="tree-row branch"><span>⌄</span><b>▣</b><strong>Equipment</strong><em>group</em></div>
+            <div id="station-tree"></div>
+            <div class="tree-row branch"><span>›</span><b>⇢</b><strong>MaterialFlow</strong><em>scope</em></div>
+            <div class="tree-row branch"><span>›</span><b>◉</b><strong>Render</strong><em>scope</em></div>
+          </div>
+        </article>
+
+        <article class="metadata-panel">
+          <div class="panel-head"><div><span>PRIM INSPECTOR</span><small id="prim-path">/Factory/Equipment/Receiving</small></div><em id="prim-status">ONLINE</em></div>
+          <div class="asset-preview"><div id="asset-cube"><span>R</span></div><div><small>REFERENCED ASSET</small><strong>Generic Production Station</strong><p>FlowForge.GenericStation · v1.0.0</p></div></div>
+          <dl id="metadata-list"></dl>
+          <div class="arc-badges"><span>REFERENCE</span><span>PAYLOAD</span><span>CUSTOM DATA</span></div>
+        </article>
+
+        <article class="code-panel">
+          <div class="panel-head"><div><span>USDA PREVIEW</span><small>AUTHORED OPINIONS</small></div><button id="copy-usda">COPY</button></div>
+          <pre id="usda-preview"></pre>
+          <p id="copy-status" role="status"></p>
+        </article>
+      </div>
+
+      <div class="validation-strip">
+        <div><span>STAGE</span><strong>✓ DEFAULT PRIM</strong></div>
+        <div><span>COMPOSITION</span><strong>✓ 5 REFERENCES</strong></div>
+        <div><span>VARIANTS</span><strong>✓ 2 / 2 VALID</strong></div>
+        <div><span>UNITS</span><strong>✓ METERS · Z-UP</strong></div>
+      </div>
+    </section>
   </main>
   <footer>
     <span>FLOWFORGE / OPENUSD-READY FACTORY PLANNING DEMO</span>
@@ -60,5 +117,6 @@
     </div>
   </footer>
   <script src="app.js"></script>
+  <script src="usd-lab.js"></script>
 </body>
 </html>

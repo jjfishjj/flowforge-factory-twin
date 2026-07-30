@@ -4,6 +4,10 @@
 
 一個對齊「Omniverse 數位工廠工程師」職缺的作品集專案：用互動式工廠數位雙生比較佈局方案、模擬產能與物流，再輸出可匯入 NVIDIA Omniverse 的 OpenUSD 場景。
 
+**Live Demo:** https://jjfishjj.github.io/flowforge-factory-twin/
+
+網站本身不依賴 USD Composer、GPU 或後端服務，在 macOS、Windows 與手機瀏覽器即可展示。內建 OpenUSD Studio 可操作 Scene Graph、layout variants、設備 metadata 與 USDA composition preview；真正的 `.usda` 資產仍可在 RTX 工作站交由 USD Composer 做最終驗證。
+
 ## 專案能力對照
 
 | 職務需求 | 專案證據 |
@@ -37,7 +41,9 @@ Repository 已包含 `.github/workflows/pages.yml`。建立 GitHub repository �
 .
 ├── index.html                  # Dashboard 入口
 ├── app.js                      # 模擬、視覺化與互動邏輯
+├── usd-lab.js                  # OpenUSD Scene Graph 與 metadata 互動
 ├── styles.css / footer.css     # 響應式工業控制台介面
+├── usd-lab.css                 # OpenUSD Studio 介面
 ├── assets/
 │   ├── factory_optimized.usda  # 單檔 OpenUSD prototype
 │   └── usd/                    # Variant/reference/payload 模組化 stage
@@ -48,9 +54,19 @@ Repository 已包含 `.github/workflows/pages.yml`。建立 GitHub repository �
 └── .github/workflows/pages.yml # GitHub Pages 自動部署
 ```
 
+## 不依賴 Composer 的 OpenUSD Studio
+
+瀏覽器版本提供可直接放入履歷的技術展示：
+
+- Baseline／Optimized Variant 切換會同步更新工廠佈局與 Scene Graph。
+- 點選設備 prim 可檢視 `factory:*` metadata、transform、cycle time 與 OEE。
+- Composition 視圖呈現 `factory.usda → station.usda → station_payload.usda` 的 reference／payload 關係。
+- USDA preview 可複製，讓面試官看見畫面背後的 OpenUSD schema 表達。
+- 使用原生 HTML、CSS、JavaScript，GitHub Pages 可直接託管，無需 WebGL framework 或伺服器。
+
 ## OpenUSD 場景
 
-推薦在 USD Composer 開啟：
+若進入 RTX 實機驗證階段，可在 USD Composer 開啟：
 
 ```text
 assets/usd/factory.usda
