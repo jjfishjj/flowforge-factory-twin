@@ -8,7 +8,7 @@
 
 | 職務需求 | 專案證據 |
 |---|---|
-| Omniverse / OpenUSD | `tools/generate_usd.py` 產生具階層、語意 metadata 與佈局 variant 的 USDA stage |
+| Omniverse / OpenUSD | 工廠 assembly 以 VariantSet、references、payload 與語意 metadata 組成 |
 | 3D 數位雙生 | Canvas 等角視圖呈現設備、物流路徑、WIP 與即時設備狀態 |
 | Facility Layout | Baseline / Optimized 方案切換，量化移動距離與擁塞 |
 | 產能與製程模擬 | 依 cycle time、OEE、班次、需求量進行逐分鐘離散模擬 |
@@ -39,19 +39,49 @@ Repository 已包含 `.github/workflows/pages.yml`。建立 GitHub repository �
 ├── app.js                      # 模擬、視覺化與互動邏輯
 ├── styles.css / footer.css     # 響應式工業控制台介面
 ├── assets/
-│   └── factory_optimized.usda  # 網頁可直接下載的 OpenUSD 範例
+│   ├── factory_optimized.usda  # 單檔 OpenUSD prototype
+│   └── usd/                    # Variant/reference/payload 模組化 stage
+├── exts/
+│   └── com.flowforge.factory_inspector # Omniverse Kit Extension
 ├── tools/
 │   └── generate_usd.py         # OpenUSD 場景產生器
 └── .github/workflows/pages.yml # GitHub Pages 自動部署
 ```
 
-## 產生 OpenUSD 場景
+## OpenUSD 場景
+
+推薦在 USD Composer 開啟：
+
+```text
+assets/usd/factory.usda
+```
+
+場景採用模組化 composition：
+
+- `/Factory` 是 `assembly`，提供 `Baseline`／`Optimized` layout variants。
+- 五個設備 prim reference 同一個 `GenericStation` component。
+- Component 的公開介面與幾何 payload 分離，可選擇性載入。
+- `factory:stationId`、`factory:cycleTimeMinutes`、`factory:nominalOee`、`factory:mesTag` 提供 MES／IoT 串接介面。
+- 所有資產使用相對路徑，整個 `assets/usd` 目錄可攜。
+
+原本的單檔輸出工具仍可用於快速產生 flattened prototype：
 
 ```bash
 python3 tools/generate_usd.py --layout optimized --output factory_optimized.usda
 ```
 
-用 USD Composer 或任何支援 OpenUSD 的 Omniverse app 開啟輸出的 `.usda`。Stage 使用 Z-up、meter 單位，設備位於 `/Factory/Equipment`，物流路徑位於 `/Factory/MaterialFlow`；每台設備包含 `factory:*` 自訂屬性，方便後續串接 MES/IoT。
+Stage 使用 Z-up、meter 單位，設備位於 `/Factory/Equipment`，物流路徑位於 `/Factory/MaterialFlow`。
+
+## Omniverse Kit Extension
+
+`exts/com.flowforge.factory_inspector` 是可加入 USD Composer Extension Search Path 的 Python extension。啟用後可以：
+
+- 讀取目前 stage 的 `factory:*` metadata。
+- 在 Baseline 與 Optimized variants 之間切換。
+- 統計設備數量。
+- 依 cycle time／OEE 找出可能瓶頸。
+
+詳細安裝步驟見 [`exts/com.flowforge.factory_inspector/README.md`](exts/com.flowforge.factory_inspector/README.md)。
 
 ## Demo 腳本（3 分鐘）
 
@@ -65,10 +95,10 @@ python3 tools/generate_usd.py --layout optimized --output factory_optimized.usda
 
 本 MVP 的模擬是決定性的簡化離散模型，適合展示規劃思路，不能取代正式工業模擬或安全驗證。下一階段可加入：
 
-- 以 Omniverse Kit Extension 直接讀取 `factory:*` metadata 並疊加 KPI。
+- 在具備 Omniverse Kit 的環境執行 Extension runtime test 與 USD Validator。
 - MQTT / OPC UA 即時設備資料，讓狀態由模擬切換為現場 telemetry。
 - AGV 路徑規劃、碰撞區域與多方案最佳化。
-- 使用 USD references / payloads 拆分設備資產，建立可重用的 SimReady asset library。
+- 進一步以 binary payload、Point Instancer 與材質 library 擴充為 SimReady asset pipeline。
 
 ## 參考
 

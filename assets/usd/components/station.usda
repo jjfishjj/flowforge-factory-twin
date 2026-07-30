@@ -1,0 +1,22 @@
+#usda 1.0
+(
+    defaultPrim = "Station"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Station" (
+    kind = "component"
+    assetInfo = {
+        string identifier = "FlowForge.GenericStation"
+        string name = "Generic Production Station"
+        string version = "1.0.0"
+    }
+    prepend payload = @./station_payload.usda@</StationPayload>
+)
+{
+    custom string factory:assetClass = "productionEquipment"
+    custom string factory:manufacturer = "FlowForge Demo Assets"
+    custom string factory:revision = "A"
+}
+

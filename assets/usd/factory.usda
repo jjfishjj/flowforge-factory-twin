@@ -1,0 +1,147 @@
+#usda 1.0
+(
+    defaultPrim = "Factory"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Factory" (
+    kind = "assembly"
+    prepend variantSets = "layout"
+    variants = {
+        string layout = "Optimized"
+    }
+    assetInfo = {
+        string identifier = "FlowForge.Plant01"
+        string name = "FlowForge Factory Twin"
+        string version = "1.0.0"
+    }
+)
+{
+    custom string factory:coordinateSystem = "Z-up"
+    custom string factory:facilityId = "TW-PLANT-01"
+    custom string factory:projectType = "greenfield-layout-study"
+
+    def Scope "Architecture"
+    {
+        def Cube "Floor"
+        {
+            double size = 1
+            color3f[] primvars:displayColor = [(0.08, 0.12, 0.1)]
+            double3 xformOp:scale = (100, 78, 0.2)
+            double3 xformOp:translate = (50, 39, -0.1)
+            uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+        }
+    }
+
+    def Xform "Equipment" (kind = "group")
+    {
+    }
+
+    def Scope "MaterialFlow"
+    {
+        custom string factory:route = "Receiving>CNC_01>Inspection>Assembly>Packaging"
+    }
+
+    variantSet "layout" = {
+        "Baseline" {
+            over "Equipment" {
+                def Xform "Receiving" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.38
+                    custom double factory:nominalOee = 0.94
+                    custom string factory:mesTag = "PL01.RECV.001"
+                    custom string factory:stationId = "Receiving"
+                    double3 xformOp:scale = (15, 14, 3)
+                    double3 xformOp:translate = (17.5, 25, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "CNC_01" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.52
+                    custom double factory:nominalOee = 0.89
+                    custom string factory:mesTag = "PL01.CNC.001"
+                    custom string factory:stationId = "CNC_01"
+                    double3 xformOp:scale = (16, 14, 3)
+                    double3 xformOp:translate = (40, 19, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "Inspection" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.46
+                    custom double factory:nominalOee = 0.91
+                    custom string factory:mesTag = "PL01.QC.001"
+                    custom string factory:stationId = "Inspection"
+                    double3 xformOp:scale = (14, 13, 3)
+                    double3 xformOp:translate = (65, 21.5, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "Assembly" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.39
+                    custom double factory:nominalOee = 0.82
+                    custom string factory:mesTag = "PL01.ASM.001"
+                    custom string factory:stationId = "Assembly"
+                    double3 xformOp:scale = (18, 16, 3)
+                    double3 xformOp:translate = (44, 60, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "Packaging" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.43
+                    custom double factory:nominalOee = 0.88
+                    custom string factory:mesTag = "PL01.PKG.001"
+                    custom string factory:stationId = "Packaging"
+                    double3 xformOp:scale = (16, 14, 3)
+                    double3 xformOp:translate = (80, 55, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+            }
+        }
+        "Optimized" {
+            over "Equipment" {
+                def Xform "Receiving" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.38
+                    custom double factory:nominalOee = 0.94
+                    custom string factory:mesTag = "PL01.RECV.001"
+                    custom string factory:stationId = "Receiving"
+                    double3 xformOp:scale = (15, 14, 3)
+                    double3 xformOp:translate = (19.5, 32, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "CNC_01" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.52
+                    custom double factory:nominalOee = 0.89
+                    custom string factory:mesTag = "PL01.CNC.001"
+                    custom string factory:stationId = "CNC_01"
+                    double3 xformOp:scale = (16, 14, 3)
+                    double3 xformOp:translate = (42, 21, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "Inspection" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.46
+                    custom double factory:nominalOee = 0.91
+                    custom string factory:mesTag = "PL01.QC.001"
+                    custom string factory:stationId = "Inspection"
+                    double3 xformOp:scale = (14, 13, 3)
+                    double3 xformOp:translate = (66, 21.5, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "Assembly" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.39
+                    custom double factory:nominalOee = 0.82
+                    custom string factory:mesTag = "PL01.ASM.001"
+                    custom string factory:stationId = "Assembly"
+                    double3 xformOp:scale = (18, 16, 3)
+                    double3 xformOp:translate = (70, 56, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+                def Xform "Packaging" (prepend references = @./components/station.usda@</Station>) {
+                    custom double factory:cycleTimeMinutes = 0.43
+                    custom double factory:nominalOee = 0.88
+                    custom string factory:mesTag = "PL01.PKG.001"
+                    custom string factory:stationId = "Packaging"
+                    double3 xformOp:scale = (16, 14, 3)
+                    double3 xformOp:translate = (42, 56, 1.5)
+                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                }
+            }
+        }
+    }
+}
+

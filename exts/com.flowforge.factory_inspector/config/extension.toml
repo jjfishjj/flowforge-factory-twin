@@ -1,0 +1,15 @@
+[package]
+version = "1.0.0"
+title = "FlowForge Factory Inspector"
+description = "Inspect factory metadata and switch OpenUSD layout variants."
+category = "Simulation"
+authors = ["Jerome Kuo"]
+keywords = ["OpenUSD", "factory", "digital twin", "layout"]
+
+[dependencies]
+"omni.kit.uiapp" = {}
+"omni.usd" = {}
+
+[[python.module]]
+name = "com.flowforge.factory_inspector"
+
