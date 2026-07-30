@@ -83,6 +83,8 @@ Stage 使用 Z-up、meter 單位，設備位於 `/Factory/Equipment`，物流路
 
 詳細安裝步驟見 [`exts/com.flowforge.factory_inspector/README.md`](exts/com.flowforge.factory_inspector/README.md)。
 
+OpenUSD CLI、variant validation 與 Metal Hydra render 證據見 [`docs/evidence`](docs/evidence/README.md)。
+
 ## Demo 腳本（3 分鐘）
 
 1. 先展示 Baseline，指出 Assembly 與 Packaging 距離過遠，物流線交叉。

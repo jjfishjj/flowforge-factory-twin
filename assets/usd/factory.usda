@@ -30,7 +30,7 @@ def Xform "Factory" (
             color3f[] primvars:displayColor = [(0.08, 0.12, 0.1)]
             double3 xformOp:scale = (100, 78, 0.2)
             double3 xformOp:translate = (50, 39, -0.1)
-            uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
         }
     }
 
@@ -43,6 +43,27 @@ def Xform "Factory" (
         custom string factory:route = "Receiving>CNC_01>Inspection>Assembly>Packaging"
     }
 
+    def Scope "Render"
+    {
+        def Camera "FactoryCamera"
+        {
+            float2 clippingRange = (0.1, 1000)
+            float horizontalAperture = 120
+            float verticalAperture = 80
+            token projection = "orthographic"
+            double3 xformOp:translate = (50, 39, 150)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def DistantLight "KeyLight"
+        {
+            float intensity = 1500
+            float angle = 1
+            float3 xformOp:rotateXYZ = (45, 0, -35)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+    }
+
     variantSet "layout" = {
         "Baseline" {
             over "Equipment" {
@@ -53,7 +74,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "Receiving"
                     double3 xformOp:scale = (15, 14, 3)
                     double3 xformOp:translate = (17.5, 25, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "CNC_01" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.52
@@ -62,7 +83,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "CNC_01"
                     double3 xformOp:scale = (16, 14, 3)
                     double3 xformOp:translate = (40, 19, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "Inspection" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.46
@@ -71,7 +92,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "Inspection"
                     double3 xformOp:scale = (14, 13, 3)
                     double3 xformOp:translate = (65, 21.5, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "Assembly" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.39
@@ -80,7 +101,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "Assembly"
                     double3 xformOp:scale = (18, 16, 3)
                     double3 xformOp:translate = (44, 60, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "Packaging" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.43
@@ -89,7 +110,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "Packaging"
                     double3 xformOp:scale = (16, 14, 3)
                     double3 xformOp:translate = (80, 55, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
             }
         }
@@ -102,7 +123,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "Receiving"
                     double3 xformOp:scale = (15, 14, 3)
                     double3 xformOp:translate = (19.5, 32, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "CNC_01" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.52
@@ -111,7 +132,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "CNC_01"
                     double3 xformOp:scale = (16, 14, 3)
                     double3 xformOp:translate = (42, 21, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "Inspection" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.46
@@ -120,7 +141,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "Inspection"
                     double3 xformOp:scale = (14, 13, 3)
                     double3 xformOp:translate = (66, 21.5, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "Assembly" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.39
@@ -129,7 +150,7 @@ def Xform "Factory" (
                     custom string factory:stationId = "Assembly"
                     double3 xformOp:scale = (18, 16, 3)
                     double3 xformOp:translate = (70, 56, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
                 def Xform "Packaging" (prepend references = @./components/station.usda@</Station>) {
                     custom double factory:cycleTimeMinutes = 0.43
@@ -138,10 +159,9 @@ def Xform "Factory" (
                     custom string factory:stationId = "Packaging"
                     double3 xformOp:scale = (16, 14, 3)
                     double3 xformOp:translate = (42, 56, 1.5)
-                    uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
                 }
             }
         }
     }
 }
-

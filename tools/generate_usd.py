@@ -20,7 +20,9 @@ CYCLE = {"Receiving": .38, "CNC_01": .52, "Inspection": .46, "Assembly": .39, "P
 
 def cube(name: str, x: float, y: float, w: float, d: float, color: tuple[float, float, float]) -> str:
     return f'''        def Xform "{name}" (
-            customData = {{ string factory:assetType = "equipment" }}
+            customData = {{
+                string factory_assetType = "equipment"
+            }}
         )
         {{
             double factory:cycleTimeMinutes = {CYCLE[name]}
@@ -44,7 +46,9 @@ def build(layout: str) -> str:
     defaultPrim = "Factory"
     metersPerUnit = 1
     upAxis = "Z"
-    customLayerData = {{ string factory:layoutScenario = "{layout}" }}
+    customLayerData = {{
+        string factory_layoutScenario = "{layout}"
+    }}
 )
 
 def Xform "Factory"
@@ -57,7 +61,7 @@ def Xform "Factory"
             color3f[] primvars:displayColor = [(0.08, 0.12, 0.1)]
             double3 xformOp:scale = (100, 78, 0.2)
             double3 xformOp:translate = (50, 39, -0.1)
-            uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
         }}
     }}
     def Scope "Equipment"
@@ -65,7 +69,9 @@ def Xform "Factory"
 {equipment}
     }}
     def Scope "MaterialFlow" (
-        customData = {{ string factory:route = "Receiving>CNC_01>Inspection>Assembly>Packaging" }}
+        customData = {{
+            string factory_route = "Receiving>CNC_01>Inspection>Assembly>Packaging"
+        }}
     )
     {{
     }}
@@ -82,4 +88,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -3,7 +3,9 @@
     defaultPrim = "Factory"
     metersPerUnit = 1
     upAxis = "Z"
-    customLayerData = { string factory:layoutScenario = "optimized" }
+    customLayerData = {
+        string factory_layoutScenario = "optimized"
+    }
 )
 
 def Xform "Factory"
@@ -16,13 +18,15 @@ def Xform "Factory"
             color3f[] primvars:displayColor = [(0.08, 0.12, 0.1)]
             double3 xformOp:scale = (100, 78, 0.2)
             double3 xformOp:translate = (50, 39, -0.1)
-            uniform token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
         }
     }
     def Scope "Equipment"
     {
         def Xform "Receiving" (
-            customData = { string factory:assetType = "equipment" }
+            customData = {
+                string factory_assetType = "equipment"
+            }
         )
         {
             double factory:cycleTimeMinutes = 0.38
@@ -38,7 +42,9 @@ def Xform "Factory"
             }
         }
         def Xform "CNC_01" (
-            customData = { string factory:assetType = "equipment" }
+            customData = {
+                string factory_assetType = "equipment"
+            }
         )
         {
             double factory:cycleTimeMinutes = 0.52
@@ -54,7 +60,9 @@ def Xform "Factory"
             }
         }
         def Xform "Inspection" (
-            customData = { string factory:assetType = "equipment" }
+            customData = {
+                string factory_assetType = "equipment"
+            }
         )
         {
             double factory:cycleTimeMinutes = 0.46
@@ -70,7 +78,9 @@ def Xform "Factory"
             }
         }
         def Xform "Assembly" (
-            customData = { string factory:assetType = "equipment" }
+            customData = {
+                string factory_assetType = "equipment"
+            }
         )
         {
             double factory:cycleTimeMinutes = 0.39
@@ -86,7 +96,9 @@ def Xform "Factory"
             }
         }
         def Xform "Packaging" (
-            customData = { string factory:assetType = "equipment" }
+            customData = {
+                string factory_assetType = "equipment"
+            }
         )
         {
             double factory:cycleTimeMinutes = 0.43
@@ -103,7 +115,9 @@ def Xform "Factory"
         }
     }
     def Scope "MaterialFlow" (
-        customData = { string factory:route = "Receiving>CNC_01>Inspection>Assembly>Packaging" }
+        customData = {
+            string factory_route = "Receiving>CNC_01>Inspection>Assembly>Packaging"
+        }
     )
     {
     }
