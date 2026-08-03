@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="footer.css">
   <link rel="stylesheet" href="usd-lab.css">
+  <link rel="stylesheet" href="case-study.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">F</span><div><strong>FLOWFORGE</strong><small>FACTORY DIGITAL TWIN</small></div></div>
-    <nav class="top-nav" aria-label="Demo sections"><a href="#operations">OPERATIONS</a><a href="#openusd-studio">OPENUSD STUDIO</a></nav>
+    <nav class="top-nav" aria-label="Demo sections"><a href="#operations">OPERATIONS</a><a href="#openusd-studio">OPENUSD STUDIO</a><a href="#case-study">CASE STUDY</a></nav>
     <div class="status"><i></i> SIMULATION READY <span id="clock">08:00</span></div>
   </header>
 
@@ -34,7 +35,11 @@
     <section class="workspace">
       <div class="stage-card">
         <div class="panel-head"><div><span>LIVE DIGITAL TWIN</span><small id="layout-label">BASELINE LAYOUT</small></div><div class="legend"><b class="ok"></b>RUNNING <b class="warn"></b>BOTTLENECK</div></div>
-        <div class="canvas-wrap"><canvas id="factory-canvas" width="1100" height="620" aria-label="工廠數位雙生俯視圖"></canvas><div class="view-chip">ISOMETRIC · Z-UP</div></div>
+        <div class="canvas-wrap">
+          <canvas id="factory-canvas" width="1100" height="620" aria-label="包含機械手臂、輸送帶、AGV 與移動工件的工廠數位雙生俯視圖"></canvas>
+          <div class="live-hud" aria-live="polite"><span><i></i>LIVE TELEMETRY</span><b id="agv-live">AGV 03/03</b><b id="parts-live">WIP 00</b><button id="motion-toggle" aria-pressed="false">Ⅱ PAUSE</button></div>
+          <div class="view-chip">ISOMETRIC · Z-UP</div>
+        </div>
       </div>
 
       <aside class="control-card">
@@ -107,6 +112,40 @@
         <div><span>VARIANTS</span><strong>✓ 2 / 2 VALID</strong></div>
         <div><span>UNITS</span><strong>✓ METERS · Z-UP</strong></div>
       </div>
+    </section>
+
+    <section class="case-study" id="case-study" aria-labelledby="case-title">
+      <div class="case-heading">
+        <div><p class="eyebrow">PORTFOLIO CASE STUDY</p><h2 id="case-title">From layout friction to measurable flow</h2></div>
+        <p>A browser-first digital factory demonstrator that connects facility planning decisions to OpenUSD-ready engineering data.</p>
+      </div>
+      <div class="case-problem">
+        <span>THE PROBLEM</span>
+        <h3>Long material travel hides capacity loss.</h3>
+        <p>The baseline line separates Assembly and Packaging, creating crossed logistics paths, excess WIP and dependence on AGV availability. Static 3D views alone cannot quantify the operational trade-off.</p>
+      </div>
+      <div class="case-method" aria-label="Project method">
+        <article><b>01</b><span>MODEL</span><strong>Structure the factory</strong><p>Five reusable station components with OpenUSD references, payloads, variants and MES metadata.</p></article>
+        <article><b>02</b><span>SIMULATE</span><strong>Test what-if scenarios</strong><p>Shift, demand, Assembly OEE and AGV fleet feed a deterministic capacity model.</p></article>
+        <article><b>03</b><span>OPTIMIZE</span><strong>Compare equal conditions</strong><p>A U-cell alternative shortens the route while preserving the same process sequence.</p></article>
+        <article><b>04</b><span>COMMUNICATE</span><strong>Make evidence portable</strong><p>The Web Demo runs anywhere; authored USDA remains ready for Composer validation on RTX.</p></article>
+      </div>
+      <div class="case-results">
+        <div class="result-lead"><span>MEASURED IMPACT</span><strong>40%</strong><p>less material travel per unit</p></div>
+        <dl>
+          <div><dt>BASELINE DISTANCE</dt><dd>86 m</dd></div>
+          <div><dt>OPTIMIZED DISTANCE</dt><dd>52 m</dd></div>
+          <div><dt>ROUTE REDUCTION</dt><dd>−34 m</dd></div>
+          <div><dt>USD VALIDATION</dt><dd>2 / 2 variants</dd></div>
+        </dl>
+      </div>
+      <div class="architecture" aria-label="Technical architecture">
+        <div><span>SCENARIO INPUTS</span><strong>Shift · Demand · OEE · AGV</strong></div><i>→</i>
+        <div><span>SIMULATION CORE</span><strong>Capacity · WIP · Bottleneck</strong></div><i>→</i>
+        <div><span>DIGITAL TWIN</span><strong>Canvas animation · Telemetry</strong></div><i>→</i>
+        <div><span>OPENUSD</span><strong>Variants · References · Metadata</strong></div>
+      </div>
+      <div class="rtx-handoff"><div><span>NEXT ENVIRONMENT</span><h3>RTX validation package is ready.</h3><p>Open the same repository on Windows, load the stage and Kit Extension, then capture runtime evidence.</p></div><a href="docs/windows-rtx-validation.md">VIEW RTX CHECKLIST →</a></div>
     </section>
   </main>
   <footer>

@@ -18,6 +18,13 @@
 | 產能與製程模擬 | 依 cycle time、OEE、班次、需求量進行逐分鐘離散模擬 |
 | 數據可視化 | Throughput、達成率、WIP、物流距離、瓶頸與時間序列圖 |
 
+## Web Demo highlights
+
+- 即時 Canvas 動畫呈現機械手臂作業、輸送帶流動、AGV 車隊與製程工件。
+- 動畫會跟隨佈局 variant 與 AGV fleet 參數更新，並可暫停方便解說。
+- Portfolio Case Study 說明問題、建模方法、技術架構與 86 m → 52 m 的物流改善。
+- Composer-free OpenUSD Studio 可在一般瀏覽器檢視 Scene Graph、metadata 與 USDA opinions。
+
 ## 快速啟動
 
 不需安裝套件：
@@ -100,6 +107,8 @@ Stage 使用 Z-up、meter 單位，設備位於 `/Factory/Equipment`，物流路
 詳細安裝步驟見 [`exts/com.flowforge.factory_inspector/README.md`](exts/com.flowforge.factory_inspector/README.md)。
 
 OpenUSD CLI、variant validation 與 Metal Hydra render 證據見 [`docs/evidence`](docs/evidence/README.md)。
+
+Windows RTX 實機驗證流程與錄影分鏡見 [`docs/windows-rtx-validation.md`](docs/windows-rtx-validation.md)。
 
 ## Demo 腳本（3 分鐘）
 
