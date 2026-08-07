@@ -1,0 +1,11 @@
+file 'frame-01-baseline.png'
+duration 12
+file 'frame-02-congestion.png'
+duration 10
+file 'frame-03-optimized.png'
+duration 11
+file 'frame-04-openusd.png'
+duration 12
+file 'frame-05-case-study.png'
+duration 10
+file 'frame-05-case-study.png'

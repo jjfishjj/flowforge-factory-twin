@@ -21,6 +21,7 @@
 ## Web Demo highlights
 
 - 即時 Canvas 動畫呈現機械手臂作業、輸送帶流動、AGV 車隊與製程工件。
+- AGV traffic model 顯示 utilization、blocked time、queue heatmap 與 predicted conflicts。
 - 動畫會跟隨佈局 variant 與 AGV fleet 參數更新，並可暫停方便解說。
 - Portfolio Case Study 說明問題、建模方法、技術架構與 86 m → 52 m 的物流改善。
 - Composer-free OpenUSD Studio 可在一般瀏覽器檢視 Scene Graph、metadata 與 USDA opinions。
@@ -109,6 +110,10 @@ Stage 使用 Z-up、meter 單位，設備位於 `/Factory/Equipment`，物流路
 OpenUSD CLI、variant validation 與 Metal Hydra render 證據見 [`docs/evidence`](docs/evidence/README.md)。
 
 Windows RTX 實機驗證流程與錄影分鏡見 [`docs/windows-rtx-validation.md`](docs/windows-rtx-validation.md)。
+
+55 秒履歷影片腳本、英文 SRT 字幕與中英文 LinkedIn 貼文見 [`docs/demo-video`](docs/demo-video/recording-script.md)。
+
+可直接預覽的 1080p H.264 影片為 [`factory-twin-portfolio-demo-55s.mp4`](docs/demo-video/factory-twin-portfolio-demo-55s.mp4)，內含可開關的英文字幕軌。
 
 ## Demo 腳本（3 分鐘）
 

@@ -59,6 +59,17 @@
       <article class="insight-card"><div class="panel-head"><div><span>ENGINEERING INSIGHTS</span><small>AUTOMATED BOTTLENECK REVIEW</small></div></div><div id="insights" class="empty-state">Run a simulation to generate engineering recommendations.</div></article>
     </section>
 
+    <section class="mobility-card" aria-labelledby="mobility-title">
+      <div class="panel-head"><div><span id="mobility-title">AGV TRAFFIC ANALYSIS</span><small>COLLISION RISK · QUEUE HEATMAP · FLEET UTILIZATION</small></div><div class="heat-legend"><i></i>LOW <i></i>MED <i></i>HIGH</div></div>
+      <div class="mobility-grid">
+        <article><span>AGV UTILIZATION</span><strong id="agv-utilization">—</strong><small id="agv-util-note">fleet workload</small></article>
+        <article><span>BLOCKED TIME</span><strong id="blocked-time">—</strong><small>percent of travel time</small></article>
+        <article><span>MAX QUEUE</span><strong id="max-queue">—</strong><small>units at conflict zone</small></article>
+        <article><span>CONFLICT EVENTS</span><strong id="conflict-events">—</strong><small>predicted per shift</small></article>
+        <div class="congestion-summary"><b id="traffic-level">CALCULATING</b><p id="traffic-advice">Traffic model updates with demand, layout and fleet size.</p></div>
+      </div>
+    </section>
+
     <section class="usd-lab" id="openusd-studio" aria-labelledby="usd-title">
       <div class="usd-hero">
         <div>
@@ -151,6 +162,7 @@
   <footer>
     <span>FLOWFORGE / OPENUSD-READY FACTORY PLANNING DEMO</span>
     <div class="footer-actions">
+      <a href="docs/demo-video/factory-twin-portfolio-demo-55s.mp4">WATCH 55S DEMO</a>
       <a href="assets/usd/factory.usda" download>DOWNLOAD OPENUSD</a>
       <button id="export-csv">EXPORT RESULTS CSV</button>
     </div>

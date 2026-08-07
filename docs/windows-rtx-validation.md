@@ -2,6 +2,15 @@
 
 Use this checklist when the repository is opened on a Windows RTX workstation with NVIDIA USD Composer installed. The Web Demo does not require Composer; this pass adds runtime evidence for the portfolio.
 
+## Codex handoff
+
+On the RTX computer:
+
+1. Clone the repository or open the existing local clone.
+2. Open the same Codex task.
+3. Send: `Windows RTX repo path: C:\absolute\path\to\flowforge-factory-twin`.
+4. Codex should first run `git status`, verify Composer is available, then follow this checklist without changing verified Web Demo behavior.
+
 ## 1. Prepare
 
 - Clone or pull `https://github.com/jjfishjj/flowforge-factory-twin`.
@@ -68,4 +77,3 @@ After testing, add the actual environment values:
 | Optimized variant | Pending |
 | Extension runtime | Pending |
 | Console errors | Pending |
-
