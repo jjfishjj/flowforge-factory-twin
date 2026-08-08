@@ -8,7 +8,7 @@ Target: 1920×1080, 30 fps, 55 seconds. Record the public Web Demo with the brow
 |---|---|---|
 | 00:00–00:05 | Start on Production Intelligence; let the arm, conveyor, AGVs and parts move. | “This is FlowForge, a browser-based digital factory twin built around OpenUSD.” |
 | 00:05–00:12 | Point to output, attainment, WIP and distance KPIs. | “It connects facility layout decisions to capacity, WIP and material-flow KPIs.” |
-| 00:12–00:20 | Move AGV fleet from 3 to 6; run simulation; show heatmap and traffic metrics. | “The traffic model estimates AGV utilization, blocked time, queue depth and conflict events.” |
+| 00:12–00:20 | Move AGV fleet from 3 to 6; compare FIFO, nearest-job and zone-based. | “The traffic model compares FIFO, nearest-job, and zone-based AGV dispatch using utilization, blocked time, queue depth, and conflict events.” |
 | 00:20–00:29 | Switch from Baseline to Optimized. | “Under equal conditions, the U-cell layout reduces travel from 86 to 52 meters per unit.” |
 | 00:29–00:36 | Pause and resume animation; point to congestion summary. | “Live motion and congestion heatmaps make the operational trade-off visible.” |
 | 00:36–00:45 | Scroll to OpenUSD Studio; select Assembly in Scene Graph. | “The same stations are authored as reusable OpenUSD references with payloads and MES metadata.” |
@@ -21,10 +21,10 @@ Target: 1920×1080, 30 fps, 55 seconds. Record the public Web Demo with the brow
 - Hide bookmarks and personal browser UI.
 - Record cursor and clicks; disable notifications.
 - Use the supplied `captions-en.srt` for English subtitles.
+- The generated narrated edition uses the macOS Samantha English voice, slowed to the 55-second timeline, with captions burned into the image.
 - Export H.264 MP4, 1920×1080, 8–12 Mbps, AAC 48 kHz.
 - Thumbnail text: `OPENUSD FACTORY TWIN · 40% LESS TRAVEL`.
 
 ## Suggested filename
 
 `factory-twin-portfolio-demo-55s.mp4`
-

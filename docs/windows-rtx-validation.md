@@ -47,12 +47,14 @@ Capture:
 
 ## 4. Record the evidence clip
 
-Record a 45–60 second 1080p clip:
+Record an exact 60-second 1080p clip:
 
-1. Show the Stage tree and current Baseline layout.
-2. Select Assembly and show `factory:mesTag`, cycle time and OEE.
-3. Switch to Optimized through the Extension.
-4. Orbit the scene and end with the Extension bottleneck result visible.
+1. `00:00–00:08` — Show the Composer version, Stage tree and Baseline layout.
+2. `00:08–00:20` — Select Assembly and show `factory:mesTag`, cycle time and OEE.
+3. `00:20–00:32` — Open FlowForge Factory Inspector and refresh the stage.
+4. `00:32–00:44` — Switch to Optimized through the Extension and orbit the scene.
+5. `00:44–00:54` — Run the bottleneck review and keep the result visible.
+6. `00:54–01:00` — End on the full optimized factory with the Extension panel open.
 
 Save as `docs/evidence/rtx/factory-twin-composer-validation.mp4`.
 

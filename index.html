@@ -48,6 +48,7 @@
         <label>DAILY DEMAND <output id="demand-out">1,000</output><input id="demand" type="range" min="500" max="1800" step="50" value="1000"></label>
         <label>ASSEMBLY OEE <output id="oee-out">82%</output><input id="oee" type="range" min="50" max="100" step="1" value="82"></label>
         <label>AGV FLEET <output id="agv-out">3 units</output><input id="agv" type="range" min="1" max="8" step="1" value="3"></label>
+        <label>DISPATCH STRATEGY <select id="dispatch"><option value="fifo">FIFO</option><option value="nearest">NEAREST-JOB</option><option value="zone">ZONE-BASED</option></select></label>
         <button id="run-sim" class="run-btn"><span>▶</span> RUN SIMULATION</button>
         <p id="validation" class="validation" role="alert"></p>
         <div class="scenario-note"><span>ACTIVE ASSUMPTION</span><p id="scenario-summary">8-hour shift with 3 AGVs and 82% assembly OEE.</p></div>
@@ -67,6 +68,13 @@
         <article><span>MAX QUEUE</span><strong id="max-queue">—</strong><small>units at conflict zone</small></article>
         <article><span>CONFLICT EVENTS</span><strong id="conflict-events">—</strong><small>predicted per shift</small></article>
         <div class="congestion-summary"><b id="traffic-level">CALCULATING</b><p id="traffic-advice">Traffic model updates with demand, layout and fleet size.</p></div>
+      </div>
+      <div class="dispatch-compare">
+        <div class="dispatch-head"><span>STRATEGY BENCHMARK</span><small>SAME LAYOUT · DEMAND · SHIFT · FLEET</small></div>
+        <div class="dispatch-table" role="table" aria-label="AGV dispatch strategy comparison">
+          <div class="dispatch-row header" role="row"><span>STRATEGY</span><span>UTILIZATION</span><span>BLOCKED</span><span>QUEUE</span><span>CONFLICTS</span><span>RECOMMENDATION</span></div>
+          <div id="dispatch-rows"></div>
+        </div>
       </div>
     </section>
 
@@ -162,7 +170,7 @@
   <footer>
     <span>FLOWFORGE / OPENUSD-READY FACTORY PLANNING DEMO</span>
     <div class="footer-actions">
-      <a href="docs/demo-video/factory-twin-portfolio-demo-55s.mp4">WATCH 55S DEMO</a>
+      <a href="docs/demo-video/factory-twin-portfolio-demo-55s-narrated.mp4">WATCH NARRATED DEMO</a>
       <a href="assets/usd/factory.usda" download>DOWNLOAD OPENUSD</a>
       <button id="export-csv">EXPORT RESULTS CSV</button>
     </div>

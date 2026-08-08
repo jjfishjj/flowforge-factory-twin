@@ -8,7 +8,7 @@ It connects facility layout decisions to capacity, WIP and material-flow KPIs.
 
 3
 00:00:12,000 --> 00:00:20,000
-The traffic model estimates AGV utilization, blocked time, queue depth and conflict events.
+The traffic model compares FIFO, nearest-job and zone-based AGV dispatch strategies.
 
 4
 00:00:20,000 --> 00:00:29,000
@@ -29,4 +29,3 @@ Both layout variants pass OpenUSD validation and remain Composer-ready.
 8
 00:00:51,000 --> 00:00:55,000
 The complete demo, source and RTX validation checklist are available on GitHub.
-
