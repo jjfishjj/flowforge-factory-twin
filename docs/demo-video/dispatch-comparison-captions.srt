@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:06,000
+Three AGV dispatch strategies. One identical factory scenario.
+
+2
+00:00:06,000 --> 00:00:19,000
+FIFO uses one shared lane. Queues form at Inspection: 21 predicted conflicts.
+
+3
+00:00:19,000 --> 00:00:32,000
+Nearest-job assigns the closest available vehicle: 15 predicted conflicts.
+
+4
+00:00:32,000 --> 00:00:45,000
+Zone-based dispatch gives each fleet a clear owner: 9 predicted conflicts.
+
+5
+00:00:45,000 --> 00:00:52,000
+Zone-based reduces predicted conflicts by 57% versus FIFO in this modeled scenario.
+

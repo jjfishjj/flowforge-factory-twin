@@ -116,6 +116,8 @@ Windows RTX 實機驗證流程與錄影分鏡見 [`docs/windows-rtx-validation.m
 
 可直接預覽的英文旁白版本為 [`factory-twin-portfolio-demo-55s-narrated.mp4`](docs/demo-video/factory-twin-portfolio-demo-55s-narrated.mp4)：1080p H.264、55 秒，字幕已燒錄。原始無聲版另保留可開關的英文字幕軌。
 
+AGV 策略比較版為 [`factory-twin-dispatch-comparison-52s.mp4`](docs/demo-video/factory-twin-dispatch-comparison-52s.mp4)：1080p H.264、52 秒，以相同情境對照 FIFO、nearest-job 與 zone-based 的預測衝突結果。
+
 ## Demo 腳本（3 分鐘）
 
 1. 先展示 Baseline，指出 Assembly 與 Packaging 距離過遠，物流線交叉。
