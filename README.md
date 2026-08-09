@@ -22,7 +22,7 @@
 
 - 即時 Canvas 動畫呈現機械手臂作業、輸送帶流動、AGV 車隊與製程工件。
 - AGV traffic model 顯示 utilization、blocked time、queue heatmap 與 predicted conflicts。
-- FIFO、nearest-job、zone-based 三種 dispatch 策略可切換，並在同一情境下並排比較。
+- FIFO、nearest-job、zone-based 三種 dispatch 策略可切換並排比較；Canvas 會顯示 FIFO 排隊等待、nearest-job 動態捷徑，以及 zone ownership 與分區路線。
 - 動畫會跟隨佈局 variant 與 AGV fleet 參數更新，並可暫停方便解說。
 - Portfolio Case Study 說明問題、建模方法、技術架構與 86 m → 52 m 的物流改善。
 - Composer-free OpenUSD Studio 可在一般瀏覽器檢視 Scene Graph、metadata 與 USDA opinions。
