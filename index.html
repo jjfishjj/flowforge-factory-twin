@@ -79,6 +79,10 @@
         <article><span>WORK IN PROCESS</span><strong id="telemetry-wip">—</strong></article>
         <article><span>AGV UTILIZATION</span><strong id="telemetry-agv">—</strong></article>
       </div>
+      <section class="telemetry-trend" aria-labelledby="telemetry-trend-title">
+        <div class="telemetry-trend-head"><div><span id="telemetry-trend-title">LIVE PROCESS TRENDS</span><small>LAST 60 SAMPLES · UPDATES WITH EACH TELEMETRY MESSAGE</small></div><span id="telemetry-chart-source">DEMO</span></div>
+        <canvas id="telemetry-chart" width="960" height="230" aria-label="即時產量、OEE、WIP 與 AGV 利用率趨勢圖"></canvas>
+      </section>
       <div class="telemetry-table-wrap">
         <table class="telemetry-table"><thead><tr><th scope="col">EQUIPMENT</th><th scope="col">STATE</th><th scope="col">OEE</th><th scope="col">CYCLE TIME</th><th scope="col">LAST UPDATE</th></tr></thead><tbody id="telemetry-stations"></tbody></table>
       </div>

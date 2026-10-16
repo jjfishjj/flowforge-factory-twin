@@ -8,6 +8,8 @@
     name, state: 'RUNNING', oee: 0, cycleTime: 0, updatedAt: null
   }]));
   const metrics = { output: 0, oee: 0, wip: 0, agv: 0 };
+  const history = [];
+  const HISTORY_LIMIT = 60;
   let transport = null;
   let demoTimer = null;
   let staleTimer = null;
@@ -33,7 +35,7 @@
   function render() {
     const hasData = sourceSelect.value === 'demo' || lastMessageAt !== null;
     const online = stationNames.filter((name) => stations[name].state === 'RUNNING').length;
-    const validOee = stationNames.map((name) => stations[name].oee).filter((value) => value > 0);
+    const validOee = stationNames.filter((name) => stations[name].updatedAt).map((name) => stations[name].oee);
     const meanOee = validOee.length ? validOee.reduce((sum, value) => sum + value, 0) / validOee.length : metrics.oee;
     $('#telemetry-output').textContent = hasData ? Math.round(metrics.output).toLocaleString() : '—';
     $('#telemetry-oee').textContent = hasData ? `${meanOee.toFixed(1)}%` : '—';
@@ -60,9 +62,100 @@
     while (list.children.length > 6) list.lastElementChild.remove();
   }
 
+  function recordSample() {
+    const sampledOee = stationNames.filter((name) => stations[name].updatedAt).map((name) => stations[name].oee);
+    const oee = sampledOee.length ? sampledOee.reduce((sum, value) => sum + value, 0) / sampledOee.length : metrics.oee;
+    history.push({ at: lastMessageAt || new Date(), output: metrics.output, oee, wip: metrics.wip, agv: metrics.agv });
+    if (history.length > HISTORY_LIMIT) history.shift();
+    drawTelemetryChart();
+  }
+
+  function drawTelemetryChart() {
+    const canvas = $('#telemetry-chart');
+    if (!canvas) return;
+    const width = Math.floor(canvas.clientWidth);
+    const height = Math.floor(canvas.clientHeight);
+    if (!width || !height) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    const compact = width < 640;
+    const columns = compact ? 2 : 4;
+    const rows = Math.ceil(4 / columns);
+    const gap = 10;
+    const panelWidth = (width - gap * (columns - 1)) / columns;
+    const panelHeight = (height - gap * (rows - 1)) / rows;
+    const series = [
+      { key: 'output', label: 'SHIFT OUTPUT', unit: 'units/shift', color: '#b8f536', max: null },
+      { key: 'oee', label: 'AVG. OEE', unit: '%', color: '#50e3a4', max: 100 },
+      { key: 'wip', label: 'WORK IN PROCESS', unit: 'units', color: '#66d9ff', max: null },
+      { key: 'agv', label: 'AGV UTILIZATION', unit: '%', color: '#ffbd59', max: 100 }
+    ];
+    ctx.font = '8px monospace';
+    series.forEach((item, index) => {
+      const x = (index % columns) * (panelWidth + gap);
+      const y = Math.floor(index / columns) * (panelHeight + gap);
+      ctx.fillStyle = '#0a1511';
+      ctx.fillRect(x, y, panelWidth, panelHeight);
+      ctx.strokeStyle = '#26372f';
+      ctx.strokeRect(x + 0.5, y + 0.5, panelWidth - 1, panelHeight - 1);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#82968a';
+      ctx.fillText(item.label, x + 10, y + 15);
+      const latest = history.at(-1)?.[item.key];
+      ctx.textAlign = 'right';
+      ctx.fillStyle = item.color;
+      ctx.font = '700 10px monospace';
+      ctx.fillText(latest === undefined ? '—' : `${item.key === 'output' || item.key === 'wip' ? Math.round(latest).toLocaleString() : latest.toFixed(1)} ${item.unit}`, x + panelWidth - 10, y + 15);
+      ctx.font = '8px monospace';
+      const plotLeft = x + 10;
+      const plotRight = x + panelWidth - 10;
+      const plotTop = y + 26;
+      const plotBottom = y + panelHeight - 13;
+      const plotHeight = Math.max(10, plotBottom - plotTop);
+      ctx.strokeStyle = '#1c2b24';
+      ctx.lineWidth = 1;
+      for (let line = 0; line < 3; line += 1) {
+        const gy = plotTop + (plotHeight * line) / 2;
+        ctx.beginPath(); ctx.moveTo(plotLeft, gy); ctx.lineTo(plotRight, gy); ctx.stroke();
+      }
+      const values = history.map((sample) => sample[item.key]).filter(Number.isFinite);
+      if (values.length) {
+        let min = 0;
+        let max = item.max;
+        if (max === null) {
+          const low = Math.min(...values); const high = Math.max(...values);
+          const padding = Math.max(item.key === 'output' ? 8 : 3, (high - low) * 0.18);
+          min = Math.max(0, low - padding); max = high + padding;
+          if (max <= min) max = min + 1;
+        }
+        const points = values.map((value, pointIndex) => ({
+          x: plotLeft + (values.length === 1 ? (plotRight - plotLeft) / 2 : (plotRight - plotLeft) * pointIndex / (values.length - 1)),
+          y: plotBottom - ((value - min) / (max - min)) * plotHeight
+        }));
+        ctx.beginPath();
+        points.forEach((point, pointIndex) => pointIndex ? ctx.lineTo(point.x, point.y) : ctx.moveTo(point.x, point.y));
+        ctx.strokeStyle = item.color;
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+        const last = points.at(-1);
+        ctx.beginPath(); ctx.arc(last.x, last.y, 2.5, 0, Math.PI * 2); ctx.fillStyle = item.color; ctx.fill();
+      } else {
+        ctx.textAlign = 'center'; ctx.fillStyle = '#61746a';
+        ctx.fillText('WAITING FOR TELEMETRY', x + panelWidth / 2, plotTop + plotHeight / 2);
+      }
+      ctx.textAlign = 'left'; ctx.fillStyle = '#61746a'; ctx.fillText(history.length ? 'oldest' : '', plotLeft, y + panelHeight - 3);
+      ctx.textAlign = 'right'; ctx.fillText(history.length ? 'now' : '', plotRight, y + panelHeight - 3);
+    });
+  }
+
   function resetForExternalSource() {
     lastMessageAt = null;
     previousStates = {};
+    history.length = 0;
     metrics.output = 0;
     metrics.oee = 0;
     metrics.wip = 0;
@@ -72,7 +165,9 @@
     }));
     $('#telemetry-last-update').textContent = 'WAITING FOR FIRST TELEMETRY MESSAGE';
     $('#telemetry-events').replaceChildren();
+    $('#telemetry-chart-source').textContent = sourceSelect.value === 'demo' ? 'DEMO' : sourceSelect.value.toUpperCase();
     render();
+    drawTelemetryChart();
     logEvent('Waiting for external telemetry data.');
   }
 
@@ -104,7 +199,10 @@
       if (/(state|status|mode)$/.test(clean) || ['RUNNING', 'IDLE', 'FAULT', 'STOPPED', 'OFFLINE'].includes(textValue)) {
         station.state = textValue === 'STOPPED' ? 'IDLE' : (['RUNNING', 'IDLE', 'FAULT', 'OFFLINE'].includes(textValue) ? textValue : station.state);
         if (previousStates[stationName] !== station.state) {
-          logEvent(`${stationName.replace('_', ' ')} → ${station.state}`, station.state === 'FAULT' ? 'event-fault' : '');
+          const previous = previousStates[stationName];
+          if (station.state === 'FAULT') logEvent(`${stationName.replace('_', ' ')} → FAULT`, 'event-fault');
+          else if (station.state === 'OFFLINE') logEvent(`${stationName.replace('_', ' ')} → OFFLINE`, 'event-warning');
+          else if (previous === 'FAULT' || previous === 'OFFLINE') logEvent(`${stationName.replace('_', ' ')} restored → ${station.state}`, 'event-warning');
           previousStates[stationName] = station.state;
         }
       } else if (clean.includes('oee') && amount !== null) {
@@ -132,6 +230,23 @@
     try { message = typeof payload === 'string' ? JSON.parse(payload) : payload; }
     catch { logEvent('Received a non-JSON telemetry message.', 'event-fault'); return; }
     if (!message || typeof message !== 'object') return;
+    const events = [
+      ...(Array.isArray(message.events) ? message.events : []),
+      ...(Array.isArray(message.alarms) ? message.alarms : []),
+      ...(Array.isArray(message.data?.events) ? message.data.events : []),
+      ...(Array.isArray(message.data?.alarms) ? message.data.alarms : []),
+      ...(message.event ? [message.event] : []),
+      ...(message.alarm ? [message.alarm] : [])
+    ];
+    events.forEach((rawEvent) => {
+      const event = typeof rawEvent === 'string' ? { message: rawEvent } : rawEvent;
+      if (!event || typeof event !== 'object') return;
+      const severity = String(event.severity || event.level || event.type || 'info').toLowerCase();
+      const kind = ['critical', 'fatal', 'error', 'fault'].includes(severity) ? 'event-fault' : ['warning', 'warn'].includes(severity) ? 'event-warning' : '';
+      const text = event.message?.text || event.message || event.description || event.code || 'Telemetry event';
+      const source = event.source || event.sourceName || '';
+      logEvent(source && event.message ? `${source}: ${text}` : text, kind);
+    });
     const batch = message.tags || message.data?.tags;
     if (Array.isArray(batch)) {
       batch.forEach((item) => applyTag(item.tag || item.name || item.nodeId, item, item.unit, item.timestamp || item.sourceTimestamp));
@@ -145,6 +260,7 @@
         if (!['type', 'event', 'timestamp', 'ts', 'source', 'values', 'data'].includes(tag)) applyTag(tag, value, value?.unit, value?.timestamp);
       });
     }
+    if (lastMessageAt) recordSample();
   }
 
   function startDemo() {
@@ -158,6 +274,9 @@
     $('#telemetry-hint').textContent = '使用瀏覽器內的合成資料展示設備狀態與指標；不會連線或傳送資料至外部服務。';
     setStatus('DEMO STREAM', 'is-demo');
     $('#telemetry-last-update').textContent = 'WAITING FOR FIRST SAMPLE';
+    $('#telemetry-chart-source').textContent = 'DEMO';
+    history.length = 0;
+    drawTelemetryChart();
     if (demoTimer) clearInterval(demoTimer);
     stationNames.forEach((name, index) => {
       stations[name].state = 'RUNNING';
@@ -183,6 +302,7 @@
       lastMessageAt = now;
       $('#telemetry-last-update').textContent = `LAST UPDATE · ${clockTime(now)}`;
       render();
+      recordSample();
     };
     tick();
     demoTimer = setInterval(tick, 1800);
@@ -320,5 +440,6 @@
 
   updateSourceFields();
   render();
+  window.addEventListener('resize', drawTelemetryChart);
   startDemo();
 })();

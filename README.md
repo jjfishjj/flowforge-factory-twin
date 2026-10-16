@@ -26,9 +26,9 @@
 - 動畫會跟隨佈局 variant 與 AGV fleet 參數更新，並可暫停方便解說。
 - Portfolio Case Study 說明問題、建模方法、技術架構與 86 m → 52 m 的物流改善。
 - Composer-free OpenUSD Studio 可在一般瀏覽器檢視 Scene Graph、metadata 與 USDA opinions。
-- 即時資料展示模式支援合成資料、MQTT over WebSocket 與 OPC UA Gateway WebSocket，呈現產量、OEE、設備狀態、WIP 與 AGV 利用率。
+- 即時資料展示模式支援合成資料、MQTT over WebSocket 與 OPC UA Gateway WebSocket，並以即時趨勢圖、設備狀態和警告/故障事件呈現產量、OEE、WIP 與 AGV 利用率。
 - OPC UA 使用受信任的 Gateway 將訂閱值轉成 WebSocket JSON；瀏覽器不直接連接 OPC UA Binary Server。
-- 附有標準函式庫 MQTT mock publisher 與 Mosquitto 本機測試設定，可推送即時合成 telemetry。
+- 附有標準函式庫 MQTT mock publisher 與 Mosquitto 本機測試設定，可循環觸發正常、低 OEE 警告、設備故障及復原情境。
 
 即時資料的訊息格式、MQTT 本機測試方式、連線條件與 gateway 架構見 [`docs/telemetry.md`](docs/telemetry.md)。
 
