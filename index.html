@@ -8,11 +8,12 @@
   <link rel="stylesheet" href="footer.css">
   <link rel="stylesheet" href="usd-lab.css">
   <link rel="stylesheet" href="case-study.css">
+  <link rel="stylesheet" href="telemetry.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">F</span><div><strong>FLOWFORGE</strong><small>FACTORY DIGITAL TWIN</small></div></div>
-    <nav class="top-nav" aria-label="Demo sections"><a href="#operations">OPERATIONS</a><a href="#openusd-studio">OPENUSD STUDIO</a><a href="#case-study">CASE STUDY</a></nav>
+    <nav class="top-nav" aria-label="Demo sections"><a href="#operations">OPERATIONS</a><a href="#telemetry">TELEMETRY</a><a href="#openusd-studio">OPENUSD STUDIO</a><a href="#case-study">CASE STUDY</a></nav>
     <div class="status"><i></i> SIMULATION READY <span id="clock">08:00</span></div>
   </header>
 
@@ -53,6 +54,39 @@
         <p id="validation" class="validation" role="alert"></p>
         <div class="scenario-note"><span>ACTIVE ASSUMPTION</span><p id="scenario-summary">8-hour shift with 3 AGVs and 82% assembly OEE.</p></div>
       </aside>
+    </section>
+
+    <section class="telemetry-card" id="telemetry" aria-labelledby="telemetry-title">
+      <div class="telemetry-heading">
+        <div><span class="telemetry-title-tag">INDUSTRIAL CONNECTIVITY · READ-ONLY DEMO</span><h2 id="telemetry-title">Real-time Factory Telemetry</h2><p>Switch between safe synthetic data and live MQTT / OPC UA gateway feeds.</p></div>
+        <span id="telemetry-status" class="telemetry-status is-demo" role="status" aria-live="polite">DEMO STREAM</span>
+      </div>
+      <div class="telemetry-toolbar">
+        <label>DATA SOURCE<select id="telemetry-source"><option value="demo">SIMULATED DATA</option><option value="mqtt">MQTT over WebSocket</option><option value="opcua">OPC UA Gateway · WebSocket</option></select></label>
+        <label id="telemetry-endpoint-wrap" hidden>ENDPOINT URL<input id="telemetry-endpoint" type="url" placeholder="wss://gateway.example.com/telemetry" autocomplete="off" spellcheck="false"></label>
+        <label id="telemetry-topic-wrap" hidden>MQTT TOPIC FILTER<input id="telemetry-topic" type="text" value="flowforge/factory/+/telemetry" autocomplete="off" spellcheck="false"></label>
+        <button id="telemetry-connect" class="telemetry-action" type="button" hidden>CONNECT</button>
+        <button id="telemetry-disconnect" class="telemetry-action secondary" type="button" hidden>DISCONNECT</button>
+        <button id="telemetry-demo" class="telemetry-action secondary" type="button">RESTART DEMO</button>
+      </div>
+      <p id="telemetry-hint" class="telemetry-hint">使用瀏覽器內的合成資料展示設備狀態與指標；不會連線或傳送資料至外部服務。</p>
+      <p id="telemetry-error" class="telemetry-error" role="alert"></p>
+      <div class="telemetry-status-row"><span id="telemetry-last-update" class="telemetry-last-update">WAITING FOR FIRST SAMPLE</span></div>
+      <div class="telemetry-kpis" aria-label="即時工廠指標">
+        <article><span>SHIFT OUTPUT</span><strong id="telemetry-output">—</strong></article>
+        <article><span>AVG. EQUIPMENT OEE</span><strong id="telemetry-oee">—</strong></article>
+        <article><span>STATIONS RUNNING</span><strong id="telemetry-online">—</strong></article>
+        <article><span>WORK IN PROCESS</span><strong id="telemetry-wip">—</strong></article>
+        <article><span>AGV UTILIZATION</span><strong id="telemetry-agv">—</strong></article>
+      </div>
+      <section class="telemetry-trend" aria-labelledby="telemetry-trend-title">
+        <div class="telemetry-trend-head"><div><span id="telemetry-trend-title">LIVE PROCESS TRENDS</span><small>LAST 60 SAMPLES · UPDATES WITH EACH TELEMETRY MESSAGE</small></div><span id="telemetry-chart-source">DEMO</span></div>
+        <canvas id="telemetry-chart" width="960" height="230" aria-label="即時產量、OEE、WIP 與 AGV 利用率趨勢圖"></canvas>
+      </section>
+      <div class="telemetry-table-wrap">
+        <table class="telemetry-table"><thead><tr><th scope="col">EQUIPMENT</th><th scope="col">STATE</th><th scope="col">OEE</th><th scope="col">CYCLE TIME</th><th scope="col">LAST UPDATE</th></tr></thead><tbody id="telemetry-stations"></tbody></table>
+      </div>
+      <div class="telemetry-footer"><ul id="telemetry-events" class="telemetry-events" aria-label="Telemetry events" aria-live="polite"></ul><p class="telemetry-note">This is a read-only portfolio demo. OPC UA requires a trusted gateway that converts subscriptions to WebSocket JSON. Do not put broker credentials or private keys in this public page. <a href="docs/telemetry.md">Integration guide</a></p></div>
     </section>
 
     <section class="lower-grid">
@@ -178,5 +212,6 @@
   </footer>
   <script src="app.js"></script>
   <script src="usd-lab.js"></script>
+  <script src="telemetry.js"></script>
 </body>
 </html>
