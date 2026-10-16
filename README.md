@@ -26,6 +26,11 @@
 - 動畫會跟隨佈局 variant 與 AGV fleet 參數更新，並可暫停方便解說。
 - Portfolio Case Study 說明問題、建模方法、技術架構與 86 m → 52 m 的物流改善。
 - Composer-free OpenUSD Studio 可在一般瀏覽器檢視 Scene Graph、metadata 與 USDA opinions。
+- 即時資料展示模式支援合成資料、MQTT over WebSocket 與 OPC UA Gateway WebSocket，呈現產量、OEE、設備狀態、WIP 與 AGV 利用率。
+- OPC UA 使用受信任的 Gateway 將訂閱值轉成 WebSocket JSON；瀏覽器不直接連接 OPC UA Binary Server。
+- 附有標準函式庫 MQTT mock publisher 與 Mosquitto 本機測試設定，可推送即時合成 telemetry。
+
+即時資料的訊息格式、MQTT 本機測試方式、連線條件與 gateway 架構見 [`docs/telemetry.md`](docs/telemetry.md)。
 
 ## 快速啟動
 
@@ -53,13 +58,17 @@ Repository 已包含 `.github/workflows/pages.yml`。建立 GitHub repository �
 ├── usd-lab.js                  # OpenUSD Scene Graph 與 metadata 互動
 ├── styles.css / footer.css     # 響應式工業控制台介面
 ├── usd-lab.css                 # OpenUSD Studio 介面
+├── telemetry.js / telemetry.css # 即時 MQTT／OPC UA Gateway 展示模式
+├── docs/telemetry.md            # telemetry 格式與本機 MQTT 測試指南
 ├── assets/
 │   ├── factory_optimized.usda  # 單檔 OpenUSD prototype
 │   └── usd/                    # Variant/reference/payload 模組化 stage
 ├── exts/
 │   └── com.flowforge.factory_inspector # Omniverse Kit Extension
 ├── tools/
-│   └── generate_usd.py         # OpenUSD 場景產生器
+│   ├── generate_usd.py         # OpenUSD 場景產生器
+│   ├── mock_mqtt_publisher.py  # 合成即時資料發送器（Python 標準函式庫）
+│   └── mosquitto-test.conf     # 本機 MQTT／WebSocket broker 設定
 └── .github/workflows/pages.yml # GitHub Pages 自動部署
 ```
 
