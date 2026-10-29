@@ -4,6 +4,52 @@
 
 一個對齊「Omniverse 數位工廠工程師」職缺的作品集專案：用互動式工廠數位雙生比較佈局方案、模擬產能與物流，再輸出可匯入 NVIDIA Omniverse 的 OpenUSD 場景。
 
+## Nebius × NVIDIA Physical AI hackathon upgrade
+
+`EdgeTwin AI Agent` adds a complete sense → reason → act loop on top of the existing digital twin:
+
+1. The browser simulation emits a minimized edge telemetry envelope for AGV traffic, queues, OEE, WIP, bottlenecks and predicted conflicts.
+2. A server-side proxy calls NVIDIA Nemotron through the Nebius Token Factory OpenAI-compatible API. The API key never enters browser code.
+3. Nemotron returns a bounded JSON recommendation for the layout, AGV dispatch strategy and fleet size.
+4. A human operator reviews and explicitly applies the recommendation to the running twin.
+5. If the cloud endpoint is unavailable, a deterministic edge fallback preserves the demo and clearly labels its provenance.
+6. Every live decision displays its provider, input/output token count and an estimated USD cost using configurable per-million-token rates.
+
+This is a significant post–August 26, 2026 update for the Physical AI Track. The browser animation represents the key application modules when physical Jetson hardware is unavailable; the telemetry contract is designed to accept real MQTT/OPC UA measurements in a later edge deployment.
+
+### Run the Physical AI demo
+
+Offline/fallback mode requires no credentials:
+
+```bash
+python3 server/edge_agent_server.py
+```
+
+Open `http://127.0.0.1:8787`, run a factory simulation, then select **Analyze with Nemotron**. Without a key, the browser automatically demonstrates the deterministic edge fallback.
+
+For live Nebius Token Factory inference, keep the key server-side:
+
+```bash
+export NEBIUS_API_KEY="your-token-factory-key"
+export NEBIUS_MODEL="nvidia/nemotron-3-super-120b-a12b"
+python3 server/edge_agent_server.py
+```
+
+The proxy calls `https://api.tokenfactory.nebius.com/v1/chat/completions`. Confirm the exact Nemotron model ID available to your Token Factory project and override `NEBIUS_MODEL` when needed. The default cost estimate uses the October 2026 public Nemotron 3 Super rates: `$0.30 / 1M` input tokens and `$0.90 / 1M` output tokens. Override `NEBIUS_INPUT_USD_PER_MILLION` and `NEBIUS_OUTPUT_USD_PER_MILLION` if the pricing changes. Never place the key in `index.html`, browser JavaScript, or Git.
+
+Run the edge decision tests with:
+
+```bash
+node --test tests/edge-agent.test.mjs
+```
+
+Hackathon materials:
+
+- [Devpost submission draft](docs/hackathon-submission.md)
+- [Devpost additional-info draft](docs/devpost-additional-info.md)
+- [2:15 demo recording script](docs/hackathon-demo-script.md)
+- [Devpost 3:2 thumbnail](docs/devpost-thumbnail.png)
+
 **Live Demo:** https://jjfishjj.github.io/flowforge-factory-twin/
 
 網站本身不依賴 USD Composer、GPU 或後端服務，在 macOS、Windows 與手機瀏覽器即可展示。內建 OpenUSD Studio 可操作 Scene Graph、layout variants、設備 metadata 與 USDA composition preview；真正的 `.usda` 資產仍可在 RTX 工作站交由 USD Composer 做最終驗證。

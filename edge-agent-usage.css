@@ -1,0 +1,36 @@
+.agent-usage {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.agent-usage[hidden] {
+  display: none;
+}
+
+.agent-usage div {
+  border: 1px solid #294236;
+  background: #091710;
+  padding: 9px;
+}
+
+.agent-usage span {
+  display: block;
+  color: var(--muted);
+  font: 8px ui-monospace, monospace;
+}
+
+.agent-usage strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--mint);
+  font: 700 11px ui-monospace, monospace;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 560px) {
+  .agent-usage {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -4,15 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FlowForge Factory Twin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23b8f536'/%3E%3Cpath d='M18 14h31v9H29v8h17v9H29v12H18z' fill='%2307100d'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="footer.css">
   <link rel="stylesheet" href="usd-lab.css">
   <link rel="stylesheet" href="case-study.css">
+  <link rel="stylesheet" href="edge-agent.css">
+  <link rel="stylesheet" href="edge-agent-usage.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">F</span><div><strong>FLOWFORGE</strong><small>FACTORY DIGITAL TWIN</small></div></div>
-    <nav class="top-nav" aria-label="Demo sections"><a href="#operations">OPERATIONS</a><a href="#openusd-studio">OPENUSD STUDIO</a><a href="#case-study">CASE STUDY</a></nav>
+    <nav class="top-nav" aria-label="Demo sections"><a href="#operations">OPERATIONS</a><a href="#edge-agent">EDGE AGENT</a><a href="#openusd-studio">OPENUSD STUDIO</a><a href="#case-study">CASE STUDY</a></nav>
     <div class="status"><i></i> SIMULATION READY <span id="clock">08:00</span></div>
   </header>
 
@@ -58,6 +61,50 @@
     <section class="lower-grid">
       <article class="chart-card"><div class="panel-head"><div><span>THROUGHPUT PROFILE</span><small>HOURLY CUMULATIVE OUTPUT</small></div></div><canvas id="chart" width="800" height="260"></canvas></article>
       <article class="insight-card"><div class="panel-head"><div><span>ENGINEERING INSIGHTS</span><small>AUTOMATED BOTTLENECK REVIEW</small></div></div><div id="insights" class="empty-state">Run a simulation to generate engineering recommendations.</div></article>
+    </section>
+
+    <section class="edge-agent-card" id="edge-agent" aria-labelledby="edge-agent-title">
+      <div class="edge-agent-heading">
+        <div>
+          <p class="eyebrow">PHYSICAL AI CONTROL LOOP</p>
+          <h2 id="edge-agent-title">EdgeTwin AI Agent</h2>
+          <p>Factory telemetry is compressed at the edge, reasoned over by NVIDIA Nemotron on Nebius Token Factory, and returned as a safe dispatch action.</p>
+        </div>
+        <div class="agent-status"><i></i><span id="agent-mode">READY · FALLBACK ENABLED</span><small id="agent-model">NVIDIA NEMOTRON · NEBIUS</small></div>
+      </div>
+
+      <div class="agent-pipeline" aria-label="Physical AI inference pipeline">
+        <article><span>01 · SENSE</span><strong>Factory Twin</strong><small>AGV · WIP · OEE · queue</small></article><i>→</i>
+        <article><span>02 · FILTER</span><strong>Edge Agent</strong><small>Jetson-ready telemetry envelope</small></article><i>→</i>
+        <article><span>03 · REASON</span><strong>Nemotron</strong><small>Nebius Token Factory inference</small></article><i>→</i>
+        <article><span>04 · ACT</span><strong>Dispatch Control</strong><small>Guarded human-approved action</small></article>
+      </div>
+
+      <div class="agent-workspace">
+        <article class="telemetry-envelope">
+          <div class="panel-head"><div><span>EDGE TELEMETRY ENVELOPE</span><small>MINIMIZED SENSOR PAYLOAD</small></div><em id="telemetry-seq">SEQ 0001</em></div>
+          <dl id="agent-telemetry">
+            <div><dt>BOTTLENECK</dt><dd>—</dd></div><div><dt>ATTAINMENT</dt><dd>—</dd></div><div><dt>BLOCKED</dt><dd>—</dd></div><div><dt>CONFLICTS</dt><dd>—</dd></div>
+          </dl>
+          <pre id="telemetry-json" aria-label="Telemetry JSON"></pre>
+        </article>
+
+        <article class="agent-decision">
+          <div class="panel-head"><div><span>AI OPERATIONS DECISION</span><small id="agent-provenance">AWAITING ANALYSIS</small></div><em id="agent-risk">STANDBY</em></div>
+          <div id="agent-output" class="agent-empty">Run the factory simulation, then ask the Physical AI agent to diagnose and propose a guarded action.</div>
+          <div class="agent-usage" id="agent-usage" hidden>
+            <div><span>PROVIDER</span><strong id="agent-provider">—</strong></div>
+            <div><span>INPUT TOKENS</span><strong id="agent-input-tokens">—</strong></div>
+            <div><span>OUTPUT TOKENS</span><strong id="agent-output-tokens">—</strong></div>
+            <div><span>EST. COST</span><strong id="agent-cost">—</strong></div>
+          </div>
+          <div class="agent-actions">
+            <button id="analyze-factory" class="run-btn"><span>✦</span> ANALYZE WITH NEMOTRON</button>
+            <button id="apply-agent-action" disabled>APPLY RECOMMENDATION</button>
+          </div>
+          <p id="agent-feedback" role="status"></p>
+        </article>
+      </div>
     </section>
 
     <section class="mobility-card" aria-labelledby="mobility-title">
@@ -178,5 +225,6 @@
   </footer>
   <script src="app.js"></script>
   <script src="usd-lab.js"></script>
+  <script type="module" src="edge-agent.js"></script>
 </body>
 </html>
