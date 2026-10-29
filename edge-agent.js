@@ -63,11 +63,12 @@ async function analyze() {
     byId('agent-model').textContent = payload.model || modelLabel;
     byId('agent-feedback').textContent = 'Live Nemotron inference completed through Nebius Token Factory.';
   } catch (error) {
+    console.warn('Token Factory inference unavailable; using the deterministic edge fallback.', error);
     renderDecision(offlineRecommendation(latestTelemetry));
     byId('agent-usage').hidden = true;
     byId('agent-mode').textContent = 'DEMO · EDGE FALLBACK';
     byId('agent-model').textContent = 'NEMOTRON ENDPOINT READY';
-    byId('agent-feedback').textContent = `Cloud endpoint unavailable; deterministic edge fallback kept the control loop operational. (${error.message})`;
+    byId('agent-feedback').textContent = 'Static demo mode: deterministic edge fallback kept the control loop operational. Start the server-side proxy for live Nebius Token Factory inference.';
   } finally {
     button.disabled = false;
     button.innerHTML = '<span>✦</span> ANALYZE WITH NEMOTRON';

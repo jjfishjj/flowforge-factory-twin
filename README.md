@@ -52,6 +52,8 @@ Hackathon materials:
 
 **Live Demo:** https://jjfishjj.github.io/flowforge-factory-twin/
 
+GitHub Pages hosts the static demo and therefore uses the clearly labeled deterministic edge fallback. Run the included Python proxy locally (or deploy it behind a server endpoint) to enable live Token Factory inference without exposing the API key to browser code.
+
 網站本身不依賴 USD Composer、GPU 或後端服務，在 macOS、Windows 與手機瀏覽器即可展示。內建 OpenUSD Studio 可操作 Scene Graph、layout variants、設備 metadata 與 USDA composition preview；真正的 `.usda` 資產仍可在 RTX 工作站交由 USD Composer 做最終驗證。
 
 ## 專案能力對照
