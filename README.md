@@ -164,7 +164,7 @@ Windows RTX 實機驗證流程與錄影分鏡見 [`docs/windows-rtx-validation.m
 
 可直接預覽的英文旁白版本為 [`factory-twin-portfolio-demo-55s-narrated.mp4`](docs/demo-video/factory-twin-portfolio-demo-55s-narrated.mp4)：1080p H.264、55 秒，字幕已燒錄。原始無聲版另保留可開關的英文字幕軌。
 
-AGV 策略比較版為 [`factory-twin-dispatch-comparison-52s.mp4`](docs/demo-video/factory-twin-dispatch-comparison-52s.mp4)：1080p H.264、52 秒，以相同情境對照 FIFO、nearest-job 與 zone-based 的預測衝突結果。
+Physical AI 黑客松展示為 [`factory-twin-dispatch-comparison-52s.mp4`](docs/demo-video/factory-twin-dispatch-comparison-52s.mp4)：1080p H.264、2 分 14 秒。影片先以相同情境比較 FIFO、nearest-job 與 zone-based，再展示真實 NVIDIA Nemotron／Nebius Token Factory 推論、token 與成本、人工核准後套用策略，以及 OpenUSD Studio。原始 52 秒版本保留為 [`factory-twin-dispatch-comparison-52s-legacy.mp4`](docs/demo-video/factory-twin-dispatch-comparison-52s-legacy.mp4)。
 
 ## Demo 腳本（3 分鐘）
 

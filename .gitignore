@@ -8,3 +8,4 @@ __pycache__/
 !.env.example
 __pycache__/
 *.pyc
+docs/demo-video/capture/
